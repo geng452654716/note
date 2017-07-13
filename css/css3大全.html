@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            /**************************
+                弹性盒模型
+            ***************************/
+
+            display: flex;
+            /*
+                新版弹性盒模型，给父级加
+            */
+
+            flex-direction:row;
+            /*
+                新版弹性盒模型属性设置
+                参数：
+                    row
+                        设置主轴方向为水平方向
+                    column
+                        设置主轴方向为垂直方向
+                    row-reverse
+                        设置主轴方向为水平方向，元素排列方向为反序
+                    column-reverse
+                        设置主轴方向为垂直方向，元素排列方向为反序
+            */
+
+            justify-content: center;
+            /*
+                主轴方向富裕空间管理
+                参数：
+                    flex-start
+                        元素在主轴开始位置，富裕空间在主轴结束位置
+                    flex-end
+                        元素在主轴结束位置，富裕空间在主轴开始位置
+                    center
+                        元素在主轴的中间，富裕空间在主轴两侧
+                    space-between
+                        富裕空间平均分配在每两个元素之间
+                    space-around
+                        把富裕空间平均分配在每个元素两侧
+            */
+
+            align-items: flex-start;
+            /*
+                侧轴方向富裕空间管理（y轴）
+                参数：
+                    flex-start
+                        元素在侧轴开始位置，富裕空间在侧轴结束位置
+                    flex-end
+                        元素在侧轴结束位置，富裕空间在侧轴开始位置
+                    center
+                        元素在侧轴的中间，富裕空间在侧轴两侧
+                    baseline
+                        根据侧轴方向上文字的基线对其
+            */
+            /*************************************************/
+
+            display:-webkit-box;
+            /*
+                老版弹性盒模型
+                使用时必须加浏览器前缀，给父级加
+            */
+
+            -webkit-box-orient: horizontal;
+            /*
+                老版弹性盒模型---设置主轴方向
+                    参数：
+                        horizontal
+                            设置主轴方向为水平方向
+                        vertical
+                            设置主轴方向为垂直方向
+            */
+
+            -webkit-box-direction: reverse;
+            /*
+                元素在主轴上排列为反序，和上面的方向配合使用
+            */
+
+            -webkit-box-pack: start;
+            /*
+                主轴方向富裕空间管理
+                参数：
+                    start
+                        元素在主轴开始位置，富裕空间在主轴结束位置
+                    end
+                        元素在主轴结束位置，富裕空间在主轴开始位置
+                    center
+                        元素在主轴的中间，富裕空间在主轴两侧
+                    justify
+                        富裕空间平均分配在每两个元素之间
+
+            */
+
+            -webkit-box-align: center;
+            /*
+                侧轴方向富裕空间管理
+                参数：
+                    start
+                        元素在侧轴开始位置，富裕空间在侧轴结束位置
+                    end
+                        元素在侧轴结束位置，富裕空间在侧轴开始位置
+                    center
+                        元素在侧轴的中间，富裕空间在侧轴两侧
+                    justify
+                        富裕空间平均分配在每两个元素之间
+            */
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>
