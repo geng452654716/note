@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*******************************
+     * 事件
+     * *******************************/
+
+//鼠标事件
+    obj.onclick
+    /*
+     * 点击事件
+     * */
+
+    obj.onmouseover
+    /*
+     * 鼠标滑入事件（包括子级）
+     * */
+
+    obj.onmouseout
+    /*
+     * 鼠标滑出事件（包括子级）
+     * */
+
+    obj.onmouseenter
+    /*
+     * 鼠标滑入事件
+     * */
+
+    obj.onmouseleave
+    /*
+     * 鼠标滑出事件
+     * */
+
+    obj.onmousemove
+    /*
+     * 鼠标在元素上面移动时触发
+     * 和鼠标移动距离没有关系，和时间有关系
+     * */
+
+    obj.onmousedown
+    /*
+     *   鼠标按下事件
+     * */
+
+    obj.onmouseup
+    /*
+     *   鼠标抬起事件
+     * */
+
+    obj.ondblclick
+    /*
+     *   鼠标双击事件
+     * */
+
+    obj.onmousewheel
+    /*
+     * 鼠标滚轮事件
+     * */
+
+    window.onresize
+    /*
+     * 事件，当窗口尺寸发生改变时
+     * */
+
+    window.onscroll
+    /*
+     * 滚动条滚动式触发
+     * */
+    window.onhashchage
+    /*
+     * 当页面hashchange改变时触发的事件
+     * */
+
+
+
+    /*******************************
+     * event 事件流
+     * *******************************/
+
+    /*
+     * 事件机制
+     * 1.捕获
+     * 2.目标
+     * 3.冒泡
+     * */
+
+    div.addEventListener();
+    /*
+     * div.addEventListener('事件名',function,bloon)
+     * 事件监听器绑定事件
+     *   参数：
+     *       布尔值：
+     *           是否在捕获阶段执行
+     *           true：捕获执行
+     *           false：冒泡执行
+     * 1.在移动端全部用addEventListener绑定事件，不用on
+     * 2.用on绑定事件，同意元素的同一事件只能绑定一个函数，后绑的会覆盖前绑的
+     * 3.用addEventlistener绑定事件，同一元素同一事件，相同函数只能绑1个，不同函数可以绑多个
+     * 4.想解绑就用有名函数，匿名函数不能解绑
+     *
+     * 如果事件函数是有名的，那么后面的会覆盖前面的
+     * 如果事件函数时匿名的，是会执行的，当目标元素有多个同样的事件，但是不同形态时（捕获或冒泡）时，执行的顺序，走先绑先执行（不管捕获或者冒泡）
+     * */
+
+    div.removeEventListener();
+    /*
+     * div.removeEventListener()
+     * 事件监听器解绑事件
+     *   解绑事件需要满足4个条件
+     *   1.同一元素
+     *   2.同一事件
+     *   3.同一 函数
+     *   4.同一过程（捕获阶段或者冒泡阶段）
+     * */
+
+    ev.cancelBubble  = true;
+    ev.stopPropagation();
+    /*
+     * 阻止冒泡
+     * 方法一：
+     *   ev.cancelBubble  = true;
+     *   默认属性为false，只能阻止冒泡，不能阻止捕获
+     * 方法二：
+     *   ev.stopPropagation();
+     *   阻止后续进程，冒泡和捕获都可以阻止
+     * 必须是相同事件，才能阻止冒泡
+     * */
+
+
+    document.onmousedown = function () {
+//    return false;
+        ev.preventDefault();
+    }
+    /*
+     * 阻止浏览器默认行为，拖拽行为
+     *
+     * 在事件监听器下只能用ev.preventDefaule();
+     * */
+
+    //鼠标事件对象
+    ev.altKey
+    ev.shiftKey
+    ev.ctrlKey
+    /*
+     * 鼠标点击时是否按下alt,shift,ctrl
+     * true：按下
+     * false:没按下
+     * */
+
+    ev.clientX/ev.clientY
+    /*
+     * 鼠标位置到可视区左/上的距离
+     * */
+
+    ev.offsetX/ev.offsetY
+    /*
+     * 鼠标位置到元素的左/上的距离
+     * */
+
+</script>
+</html>

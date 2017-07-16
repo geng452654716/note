@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*******************************
+     * BOM方法
+     * *******************************/
+//DOM方法在window下使用
+
+    open(URL,name,style,boolean);
+    /*
+     * 前两个为常用参数，返回值为新打开的窗口
+     * 参数：
+     *   URL：跳转地址，网址前必须加http://
+     *   name:打开方式，框架name,默认新窗口打开
+     *       _blank:新窗口打开
+     *       _self:自身窗口打开
+     *       _top:最外层框架打开
+     *       _parent:父级框架
+     *       name:iframe的name
+     *   style:新打开窗口的样式，不常用
+     *   boolean:历史记录，不常用
+     *  top:最外层框架的window，对象
+     *  parent:父级框架的window,对象
+     * */
+
+    close();
+    /*
+     * 关闭窗口
+     * 在火狐下只能关闭用open打开的窗口
+     * */
+
+    innerWidth/innerHeight
+    /*
+     * 可视区宽高，直接使用
+     * 不考虑兼容性
+     *   用innerWidth,比如移动端
+     * 考虑兼容性
+     *   用document.documentElement.clientWidth
+     * */
+
+    pageXOffset/pageYOffset
+    /*
+     * 获取滚动条的距离
+     * */
+
+    scrollTo(x,y)
+    /*
+     * 设置滚动条的距离
+     *   参数
+     *       x：x轴
+     *       y：y轴
+     * */
+
+    location
+    /*
+     * 地址栏信息
+     * href：地址栏
+     * search:查询信息
+     *   地址栏？后面到#号前面的信息，会带？
+     * hash:锚信息
+     *   地址栏#后面的信息
+     *
+     * onhashchange  当hash改变时触发的事件
+     * 除了设置hash，其他都会刷新页面，注意别放在全局，不然会无线刷新
+     * */
+
+    history
+    /*
+     * 历史记录
+     * back() 后退
+     * foward()前进
+     * */
+
+    screen
+    /*
+     * 对象，分辨率尺寸（了解）
+     * */
+
+    navigator
+    /*
+     * 代理信息（判断浏览器使用）
+     * userAgent:浏览器信息，版本号，内核
+     * */
+
+
+</script>
+</html>

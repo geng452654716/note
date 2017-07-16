@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*******************************
+     * DOM方法
+     * *******************************/
+    var div = document.getElementsByClassName('div')[0]
+    div.firstChild
+    //第一个子节点
+    div.lastChild
+    //最后一个子节点
+    div.nextSibling
+    //下一个兄弟节点
+    div.previousSibling
+    //上一个兄弟节点
+
+    div.childNodes
+    //所有第一级子节点
+    div.children
+    //所有第一级子元素节点
+    div.parentNode
+    //父级节点
+    div.firstElementChild
+    //第一个元素子节点
+    div.lastElementChild
+    //最后一个元素子节点
+    div.nextElementSibling
+    //下一个兄弟元素节点
+    div.previousElementSibling
+    //上一个元素兄弟节点
+
+    div.getAttribute('id');
+    /*
+     第三种属性操作方式
+     获取属性值
+     getAttribute('属性名')
+     设置属性值
+     setAttribute('属性名',值)
+
+     id,class可以操作，js加的自定义属性获取不到是null,行间的自定义属性可以操作
+     .和[]可以操作id,class，js自定义属性，不能操作行间自定义属性
+
+     行间的自定义属性必须用getAttribute，变量必须用[]，其他的都用.
+     * */
+
+    var div = document.createElement('div');
+    /*
+     新建节点
+     *
+     * 	新建的节点没有插入到html的某个节点下，页面就没有新建的这个节点
+     *
+     * 新建元素节点
+     * 	document.createElement('标签名')
+     * 必须写document
+     * 创建属性节点
+     * document.createAttribute()
+     * 创建文本节点
+     *  document.createTextNode()
+     * */
+
+    document.appendChild(div);
+    /*
+     插入节点
+     父节点.appendChild(要插入的节点)
+     向父节点的最后一位插入子节点
+     如果是已有节点，相当于剪切
+     返回新插入的那个节点
+     * */
+
+    document.insertBefore(div,div1);
+    /*
+     插入节点
+     父节点.insertBefore(要插入的节点,参照节点)
+     在参照节点前插入要插入的节点
+
+     1.参照节点必须是父节点下的，不然会报错
+     2.参照节点是null,相当于appendChild
+     3.如果插入已有节点，相当于剪切
+     * */
+
+    document.removeChild(div);
+    /*
+     删除节点
+     父节点.removeChild(要删除的节点)
+     * 		从父级下删除节点
+     * 		返回删除的那个节点
+     * */
+
+    document.replaceChild(div,div1);
+    /*
+     替换节点
+     * 	父级.replaceChild(要插入的节点,要被替换的节点)
+     *  要插入的节点替换要被替换的节点
+     * 如果要插入的是已有节点，相当于剪切
+     * 返回：被替换的那个节点
+     * */
+
+    div.cloneNode();
+    /*
+     * 克隆节点
+     * 	节点.cloneNode(参数)
+     * 	只克隆结构，不克隆自定义属性，绑的事件函数		 *
+     *
+     * 	参数：默认是false
+     * 	false:
+     *  浅克隆，只克隆本身标签，行间属性
+     *  true:
+     * 	深克隆，还包括子内容和子标签
+     * */
+
+    /*******************************
+     * DOM方法--获取元素位置
+     * *******************************/
+    var div = document.getElementById('div');
+    div.offsetParent
+    /*
+     * 元素.offsetParent
+     *   定位父级
+     *   1.自身有没有定位都可以
+     *   2.没有定位父级，是body
+     *   3.body的定位父级是Null
+     * */
+
+    div.offsetLeft
+    /*
+     * 元素.offsetLeft
+     *   自身左外边界到定位父级的左内边界距离，不带单位
+     * */
+
+    div.offsetTop
+    /*
+     * 元素.offsetTop
+     *   自身上外边界到定位父级的上内边界距离，不带单位
+     * */
+
+    div.getBoundingClientRect()
+    /*
+     *   元素.getBoundingClientRect()
+     *       元素到可视区域的尺寸，对象，不带单位
+     *       top,bottom,left,right,width,height
+     *
+     *       right,bottom是元素右，下边框外到可视区左，上的距离，left+width+border
+     *       width,height是加上border的尺寸，元素实际占位尺寸，width+padding+border
+     * */
+
+    document.body.clientWidth
+    /*
+     元素.clientWidth
+     * 可视区宽度，不带单位，只跟窗口有关，与内容无关
+     * 拿不到行级元素宽高
+     * width + padding
+     * 不带border
+     * */
+
+    document.documentElement.clientHeight
+    /*
+     元素.clientHeight
+     * 可视区宽度，不带单位，只跟窗口有关，与内容无关
+     * 获取窗口高度只能用documentElement获取，用body会出错
+     * 拿不到行级元素宽高
+     * width + padding
+     * 不带border
+     * */
+
+    div.offsetWidth / div.offsetHeight
+    /*
+     * 元素实际尺寸，占位尺寸
+     * width + padding + border
+     * 可以拿到行级宽高
+     * */
+
+    div.scrollHeight / div.scrollWidth
+    /*
+     *   内容高度
+     *   当内容没有超出，clientHeight相等
+     *   内容有超出，clientHeight + 超出部分
+     * */
+
+    document.body.scrollTop
+    /*
+     * 滚动条距离顶部距离
+     * 设置：
+     *   document.body.scrollTop = 1000; 不带单位
+     * 获取：
+     *   document.body.scrollTop
+     *
+     * chrome下使用body，
+     * 其他浏览器使用documentElement
+     * */
+
+</script>
+</html>

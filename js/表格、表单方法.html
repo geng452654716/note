@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*******************************
+     * 表格方法
+     * *******************************/
+    var tab = document.getElementsByTagName('table')[0];
+    tab.tHead
+    //表头
+
+    tab.tBodies[0]
+    //表身
+
+    tab.tFoot
+    //表尾
+
+    tab.rows
+    //行
+
+    tab.cells
+    //列
+
+    tab.createTHead()
+    //新建表头
+
+    tab.createTBody()
+    //新建表身
+
+    tab.createTFoot()
+    //新建表尾巴
+
+    tab.insertRow()
+    /*
+     * insertRow([pos])  行
+     *  pos:插入到第几行前，num
+     *  不写参数，默认插入到最后一位
+     * */
+
+    tab.insertCell()
+    /*
+     * insertCell([pos])  列
+     *  pos:插入到第几列前，num
+     *  不写参数，默认插入到最后一位
+     * */
+
+    tab.deleteRow()
+    /*
+     * deleteRow([pos])  删除行
+     *  pos:删除第几个
+     * */
+
+    tab.deleteCell()
+    /*
+     * deleteRow([pos])  删除列
+     *  pos:删除第几个
+     * */
+
+    /*******************************
+     * 表单方法
+     * *******************************/
+    var form = document.getElementsByTagName('form')[0];
+    form.name
+    /*
+     * <input type="text" name="txt"/>
+     * 写在form下的input，通过input的name 可以直接获取到input
+     * */
+
+</script>
+</html>
