@@ -141,8 +141,64 @@
                     0,1,2,3,4 pos
                         元素的位置，最小值默认为1，数值越小越靠前
             */
+
+            /**************************
+                媒体查询
+            ***************************/
+            /*
+                @media
+                媒体类型
+                    all
+                        所有媒体
+                    braille
+                        盲文触觉设备
+                    embossed
+                        盲文打印机
+                    print
+                        手持设备
+                    projection
+                        打印预览
+                    screen
+                        彩屏设备
+                    speech
+                        '听觉'类似的媒体类型
+                    tty
+                        不适用像素的设备
+                    tv
+                        电视
+                关键字
+                    and
+                        媒体类型和媒体特性链接关键字（正常情况都使用all）
+                    not
+                        排除某种设备类型
+                    only
+                        只对某种设备类型生效
+
+                媒体特性
+                    min-width
+                        当屏幕大小大于等于某个值的时候识别
+                    max-width
+                        当屏幕大小小于等于某个值的时候识别
+                    orientation:portrait
+                        初步检测屏幕为竖屏(原理是根据页面可视区的宽高比来设置的，当页面中有文本框，弹出软键盘的时候，就会出问题，所以一般不用)
+                    orientation:landscape
+                        初步检测屏幕为横屏
+
+                引入方式
+                    写在样式表的最后
+                    link标签引入
+                        <link rel="stylesheet" href="路径" media="all and (条件)">
+                    在style标签头部引用
+                        @import url(路径)(max-width:1000px || 条件)
+            */
+            @media all and (max-width: 1000px) {
+                box{
+                    width: 100px;
+                }
+            }
         }
     </style>
+
 </head>
 <body>
 </body>
