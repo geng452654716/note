@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    在ES6中使用{}时,
+        若果key和val长的一样
+        原来必须使用
+        {
+            key:val.
+            key:val
+        }
+        可以进化为
+        {
+            key
+            key
+        }
+
+    在对象中的函数
+        {
+            fn:function () {
+                alert(1);
+            }
+        }
+        可以进化为
+        {
+            fn(){
+                alert(1);
+            }
+        }
+
+    面向对象写法
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            say(){
+                alert(this.name);
+            }
+        }
+        如果用class的方法写了类,那么类的 prototype 不能改写
+
+        extends继承：
+            class Police extends Person{
+                constructor(name,age){
+                    super(name,age)
+                }
+                kungfu(){
+                    alert('一阳指，九阴白骨爪')
+                }
+            }
+            class 子类 extends 父类{
+                constructor(父类参数,自己的){
+                    super(父类参数)
+                    自己的
+                }
+                自己的方法(){
+
+                }
+            }
+
+</script>
+</html>

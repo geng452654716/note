@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 面向对象
+    *   三大特征：
+    *       继承
+    *       封装
+    *       抽象   //多态
+    *   面向对象是一种对现实世界理解和抽象的方法，是计算机编程技术发展到一定阶段的产物
+    *   把功能类似或者相同的代码抽离出来，归为一类，把一些描述性的特征挂在这个类的原型上的一种编程思想
+    * */
+    new
+        函数运算符
+        new过之后,函数的返回值就变成了对象，函数里的this全部指向这个对象
+        var f = new fn;
+        我们叫f是fn的实例化对象
+        如果在构造函数中return 一个简单类型的话,那么返回的还是这个对象
+        如果在构造函数中return 一个复合类型的话,那么返回值就是这个复合类型
+
+    构造函数(工厂函数)
+        挂对象的函数,需要实例化的函数
+        构造函数的原型永远是给实例化对象使用的
+
+    原型(prototype)
+        函数的一个属性，每个函数都有，值为对象
+        添加类样式,为了优化性能
+        函数既有原型，又有原型链
+
+    原型链(__proto__)
+        实例化对象身上没有原型，只有原型链
+        fi.say -> f1.__proto__ -> fn.prototype
+        实例化对象的原型链 === 构造函数的原型
+        原型链就是实例化对象与构造函数之间的桥梁
+
+    原型链容易混淆点
+        如果直接使用Object上那么会找到Function
+        如果正常使用代码,那么到Object终止
+        也就是说方法挂在Function的原型上的时候就会报错,挂在Object的原型上就不会报错
+        Function是幕后老大,只有直接与老大交手的时候,幕后老大才会出来
+        与小call交手,最多只会惊动老大,幕后老大不会现身
+
+    坑例子
+        function fn() {}
+        fn.name = '1';
+        fn.prototype.name = function () {
+            alert(this.name);
+        }
+        var fn1 = new fn;
+        fn1.name();
+        会弹出function的整个代码块
+        因为fn1没有name属性,所以通过原型链找到fn原型上的name,此时函数内部this指向fn1,alert(this.name)就等同于,alert(fn1.name),所以fn1会再沿着原型链找一次,所以找到了name的代码块;
+
+        alert(fn.name);
+        会弹出fn
+        因为函数身上有一个name属性,不允许被修改,所以在使用name的时候就要小心;
+
+    大坑
+        如果是funciton的话,找原型链   function -> Function.prototype -> Object.prototype
+        如果是对象的话,找原型链    obj -> Object.prototype
+        如果直接使用Object,如 Object.say(),找原型链   Object -> Function.prototype 否则都会走到 Object.prototype 终止
+
+    包装对象
+        当简单类型去调用固定的属性或者方法的时候，那么系统内部会偷偷的把简单类型转成对象类型去调用属性或者方法，调用结束之后，这个包装对象自动销毁
+
+    instanceof
+        运算符
+            左值是不是右值构造出来的
+            arr instanceof Array;
+
+    继承:
+        拷贝继承
+            1.属性继承
+                function drag2(id) {
+                    drag.call(this,id);
+                }
+                调用父类并改变this指向
+            2.方法继承
+                for(var key in drag.prototype){
+                    drag2.prototype[k] = drag.prototype[k]
+                }
+                使用for循环进行深拷贝,不能直接等于,不然会赋址
+
+        类式继承(性能最高)
+            1.属性继承
+                和拷贝继承相同
+            2.方法继承
+                function paohui() {}
+                paohui.prototype = drag.prototype;
+                var ph = new paohui;
+                drag2.prototype = ph;
+                var d2 = new  drag2;
+                d2.constructor = drag2;
+                new之后会新开辟一个内存空间,就不会是赋址了,所以不会改变drag原来的属性
+                使用一个paohui作为中间人接收一下,查找路径  d2 -> d2.__proto__ -> drag2.prototype  -> ph -> ph.__proto__ -> paohui.prototype -> drag.prototype
+
+    constructor
+        构造函数上的一个属性。这个属性指向这个实例化对象的构造函数
+        这个属性很容易被修改,使用类式继承后这个属性会出问题,需要手动修复
+        为了以后维护代码使用,并不影响代码使用
+
+    hasOwnProperty
+        某个属性是不是这个对象下的，实例化对象身上的属性，必须在自身，在构造函数原型上不算
+        返回值：Boolean
+        注意：
+            只有在对象自身才算true，构造函数原型上都不算
+
+    toString -> String
+        把别的数据类型转成字符串
+        每个内置对象都有toString方法
+        自定义的实例化对象的toString指向Objet的toString（通过原型链查找）
+        用途：
+            1.转进制
+                num.toString(要转换的进制数)
+            2.判断内置对象的实例化对象的构造函数是谁
+            怎么去判断是一个数组
+            console.log(Object.prototype.toString().call(arr) == '[object Array]');
+            当slice()没有输入参数的时候，会创建一个新数组，然后把当前数组的所有元素扔进去，最后返回这个新数组。
+
+    debugger
+        控制台断点调试
+
+    对象深度克隆
+        var arr2 = JSON.parse(JSON.stringify(arr));
+
+    组件：
+        是对数据和方法的简单封装，方便复用
+        组件要有配置参数，能够做到有配置走配置，没配置走默认
+
+
+</script>
+</html>
