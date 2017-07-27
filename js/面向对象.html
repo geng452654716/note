@@ -20,6 +20,7 @@
     new
         函数运算符
         new过之后,函数的返回值就变成了对象，函数里的this全部指向这个对象
+        直接new函数的*内置*方法会报错
         var f = new fn;
         我们叫f是fn的实例化对象
         如果在构造函数中return 一个简单类型的话,那么返回的还是这个对象
@@ -84,7 +85,7 @@
                 调用父类并改变this指向
             2.方法继承
                 for(var key in drag.prototype){
-                    drag2.prototype[k] = drag.prototype[k]
+                    drag2.prototype[k] = drag.prototype[k];
                 }
                 使用for循环进行深拷贝,不能直接等于,不然会赋址
 
@@ -134,6 +135,10 @@
         是对数据和方法的简单封装，方便复用
         组件要有配置参数，能够做到有配置走配置，没配置走默认
 
+    this的优先级
+        人为手动去设置 > new > 定时器 >事件 > fn();
 
+    自定义事件
+        addEventListener()
 </script>
 </html>
