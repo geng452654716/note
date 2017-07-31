@@ -96,6 +96,100 @@
             3.某些名只会使用,不会被改变,就用const
         块:{} 一个块就相当于一个作用域,子级能访问父级域中的变量/常量，而父级不能访问子级的变量/常量
 
-    去哪里获取技术前沿东西？
+    解构赋值:
+        需求:var a = 10;
+            var b = 20;
+            如果要想让a,b互换
+        解决:
+            var [b,a] = [a,b];
+
+        对象解构 {}
+            会找到对象名字替换
+            var {a:e,b:f} = {a:1,b:2}
+            e => 1, b => 2
+            会把a和b的value值拿过来赋值给e和f
+
+    Number.isNaN()
+        和isNaN()的区别:
+            isNaN()内部会调用Number方法
+            Number.isNaN()内部不会调用Number方法,只会看参数是不是NaN
+
+    Math.trunc(num)
+        抹去num的小数
+
+    扩展运算符  ...
+        扩展运算符用三个点号表示，功能是把数组或类数组对象展开成一系列用逗号隔开的值
+        把数组每个都拆出来
+        var arr = [1, 2, 3];
+        //传统写法
+        foo(arr[0], arr[1], arr[2]); => 1,2,3
+        //使用扩展运算符
+        foo(...arr);   =>  1,2,3
+        var str = '1234567';
+        var arr = [...str]  =>  ['1','2','3','4','5','6','7']
+
+    数组去重
+        set中不允许有重复项
+        var  arr = [1,2,2,2,2,3,4,5,6,7,8,7,6,5,4,7,8,3,1,5]
+        var arr2 = [...new Set(arr)];
+
+    Array.of()
+        将一组值转成数组
+        Array.of(1,2,3,4,5) => [1,2,3,4,5]
+
+    给obj加for of循环方法(遍历器)
+        var obj = {name:'小红',age:2,sex:'女'};
+        obj[Symbol.iterator] = function () {
+            let arr = Object.keys(obj);
+            let i = 0;
+            let len = arr.length;
+            return{
+                next(){
+                    if(i < len){
+                        return{
+                            value:{
+                                val:obj[arr[i]],
+                                key:arr[i++],
+                            },
+                            done:false,
+                        }
+                    }else{
+                        return{
+                            value:null,
+                            done:true,
+                        }
+                    }
+                }
+            }
+        }
+        for(var {val,key} of obj){
+            console.log(val,key); => key:name val:'小红'
+        }
+
+    Object.keys(obj)
+        keys方法可以获取对象中的key值，并把他们放入数组，这样可以知道对象的长度
+
+    函数暂停实行方法: (Generator 函数)
+        function *fn(){
+            yield 'hello';
+            yield '事件';
+            return '呵呵哒'
+        }
+        fn();  调用之后不会执行
+        fn().next(); 只有使用next调用后,才会执行，遇到yield暂停,会返回遍历器中return值
+        第一次调用 => hello;
+        第二次调用 => 事件;
+        第三次调用 => 呵呵哒;
+        第四次调用 => undefined;
+
+    Promise 解决异步问题
+        有两个特点:
+        第一个:
+            Promise对象代表一个异步操作,有三种状态
+            Pending(进行中)
+            Resolved(已完成)
+            Rejected(已失败)
+        第二个:
+
 </script>
 </html>

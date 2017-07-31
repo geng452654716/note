@@ -129,16 +129,43 @@
         控制台断点调试
 
     对象深度克隆
-        var arr2 = JSON.parse(JSON.stringify(arr));
+        JSON方法,里面不能有函数
+            var arr2 = JSON.parse(JSON.stringify(arr));
+         正常方法:
+            var arr = [1,2,3,4,[1,2,3],{name:1},function(){}]
+            function deepClone(obj) {
+                var toString = Object.prototype.toString;
+                var o = obj.push?[]:{}
+                for(var k in obj){
+                    if(toString.call(obj[k]) == '[object Object]' || toString.call(obj[k]) == '[object Array]'){
+                        o[k] = deepClone(obj[k]);
+                    }else{
+                        o[k] = obj[k];
+                    }
+                }
+                return o;
+            }
 
-    组件：
+    组件:
         是对数据和方法的简单封装，方便复用
         组件要有配置参数，能够做到有配置走配置，没配置走默认
+        Object.assign(默认,配置)  // 有配置走配置，没配置走默认
 
     this的优先级
         人为手动去设置 > new > 定时器 >事件 > fn();
 
-    自定义事件
-        addEventListener()
+    自定义事件组件
+        addEventListener()  =>  //E:\（5）miaov\js高级\7.25 自定义事件\自定义事件组件
+
+    Object.create(拷贝的目标,新的方法)
+        返回一个新的对象,接收原对象的方法,还有自己的新方法.复杂类型数据是赋址
+
+    Object.assign(目标,源对象)
+        用于对象的合并，将源对象的所有属性，复制到目标对象
+        第一个参数是目标对象，后面的参数都是源对象
+        注意，如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性
+        如果只有一个参数，Object.assign会直接返回该参数的对象
+        如果该参数不是对象，则会先转成对象，然后返回
+        由于undefined和null无法转成对象，所以如果它们作为参数，就会报错
 </script>
 </html>

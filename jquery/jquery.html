@@ -16,5 +16,14 @@
         $('li[class^="li"]')  开头为li的都选中
         $('li[class$="li"]')  结尾为li的都选中
         表单元素不能使用attr　要使用prop
+
+    $.extend();
+        有配置走配置，没配置走默认
+            $.extend(默认，配置)
+        浅拷贝
+            $.extend([],arr)
+        深拷贝
+            $.extend(true,[],arr);
+        还可以通过它来扩展插件，写自己的方法
 </script>
 </html>
