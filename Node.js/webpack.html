@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    如何构建?
+        1.通过npm init 初始化项目
+        2.去项目文件夹中安装webpack    命令:npm i webpack -S
+        在项目中配置你的webpack    文件夹中手动新建webpack.config.js
+
+        安装 babel-loader编译器
+            命令:npm i babel-loader babel-core babel-preset-env -S  安装到本地
+        配置:
+            const path = require('path');
+            插件初始化变量同参考作业： E:\（5）miaov\js高级\8.1 webpack服务器搭建，ajax\webpackDOM;
+            module.exports = {
+                entry:'./2',  //入口文件
+                output:{
+                    path:path.resolve(__dirname,'build'),  //出口目录
+                    filename:'index.js',  //出口文件名称
+                },
+                modules:{
+                    rules:[
+                        {
+                            test:/\.js$/,  //正则筛选文件后缀
+                            use:[
+                                {
+                                    loader:'babel-loader',  //使用babel-loader编译器解析
+                                    options:{
+                                        presets:['env']
+                                    }
+                                }
+                            ]
+                        },
+                    ]
+                },
+                插件使用参考作业:E:\（5）miaov\js高级\8.1 webpack服务器搭建，ajax\webpackDOM,需要在服务器下打开，不能再中文目录
+            }
+
+            npm i  还原删除掉的插件
+</script>
+</html>

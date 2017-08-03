@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+
+    </body>
+    <script type="text/javascript">
+        AJAX:
+            异步的js与xhml
+            ****不管什么格式，数据都是字符串****
+            一种前端与后端的数据交互方式(前后端分离的技术)
+            1.减少服务器压力
+            2.优化用户体验，无刷新页面就能访问数据
+            3.使用异步方式与服务器通信，不需要打断用户的操作，具有更加迅速的响应能力
+        ***AJAX难点***：
+            拿到数据后，如何操作数据
+
+        jQuery的AJAX
+            $.ajax({
+                url:‘后端接口地址’,
+                data:{
+                    拼接的字段:需要凭借的数据（前端传给后端的数据）
+                },
+                success:function (data) {
+                    console.log(data);    //服务端信息处理完成后回调函数
+                }
+            })
+
+
+        AJAX交互模型（实现原理，实现机制）***必考***
+            打电话机制：
+                1.买部手机
+                2.输入电话号码
+                3.拨号
+                4.等待对方响应
+                5.通话
+
+            AJAX机制：
+                1.创建一个AJAX对象
+                var ajax = new XMLHttpRequset();
+                2.填写请求地址
+                open参数：
+                    1.请求方式 get post
+                        使用post不用在open这来拼接字段，在send中拼接，在send前要设置一个请求头
+                    2.请求地址1.php?user=字段
+                    3.是否异步?true:false
+                ajax.open('get | post','接口地址');
+                3.发送请求
+                //get请求
+                ajax.send();
+                //post请求
+                ajax.send(user+'字段')
+                4.等待服务器响应
+                ajax.onload = function () {
+                    //ajax.responseText:后端处理后返回的数据
+                    5.通话
+                    //获取服务器返回的字符串
+                    span.innerHTML = ajax.responseText;
+                    //获取服务器的XML
+                    span.innerHTML = ajax.responseXML;
+                }
+
+
+            AJAX请求方式：
+                post：
+                    通过send发送前端数据给后端
+                    相对安全，关于用户的信息会用post
+                    体积理论上来说是无限大，但是后端会做限制
+                    在send前设置一个setRequestHeader("content-type","application/x-www-form-urlencoded")请求头
+                get:
+                    通过浏览器的url来发送数据给后端
+                    相对不安全，除了需要安全加密的信息，都可以用get
+                    体积受到浏览器限制（不同浏览器有不同限制）
+                    不用设置
+
+                使用get方法时  向IE中输入中文时，会出现问题，需要把中文转成URI码
+                encodeURI(str)  //把中文转换成URI码
+                decodeURI(str)  //吧URI码转成中文
+
+            浏览器缓存：
+                通过浏览器的url,只要每次访问就会把这个地址给缓存下来，以便下次访问直接就走缓存，下一次访问同一个地址的时候，不会再进行HTTP请求
+
+            有些时候后端改的东西因为有缓存机制，所以刷新页面的时候依然显示之前的内容。
+                解决：
+                    只要不是同一个地址，就不会有缓存
+
+            ajax.status（向服务器发送了请求，但是没成功）
+                专门用查看HTTP状态码值的
+                状态码：
+                    1,2,3,4,5 字开头 （*** 具体查询百度百科 ***）网络是怎么连接的 书
+                    1 字开头代表消息
+                    2 字开头代表成功  200-207
+                    3 字开头代表重定向
+                    4 字开头代表出错  404 出现最多
+                    5、6 字开头代表服务器问题
+                成功范围：
+                    status >= 200 && status <= 207 || status === 304
+                    IE9以下浏览器不会触发onload，所有的浏览器都支持onreadystatechange
+
+                    当服务器进行响应时，每完成一个步骤就会触发这个事件
+                    从发送到服务器处理完成一共有5个步骤
+                    每个步骤都是用数字来表示
+                    0-4
+                    只不过0是监控不到的
+
+                    ****通过ajax.readyState 监控到第几步了****
+                    ****不管他进行到几，只要到了数字4说明服务器接收并响应完成了****
+
+
+            同步：
+                代码执行时一句一句来，如果依据代码没有执行完就不会执行下断代码
+                下一句代码始终要等待上一句
+
+
+            eval:
+                可以把错误的json格式转出来 如:"{'name':'leo'}"
+                var obj = "{'name':'leo'}";
+                使用 eval('('+ obj +')') 可以成功转成对象
+
+
+            ***面试题***：
+                如果json转不了用 eval(), eval 用不了,用 new Function('','return' + obj)();
+    </script>
+</html>

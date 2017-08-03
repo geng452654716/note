@@ -189,7 +189,27 @@
             Pending(进行中)
             Resolved(已完成)
             Rejected(已失败)
-        第二个:
+        第二个:一旦状态改变，就不会再变
+        例子：E:\（5）miaov\js高级\2017-5-3-class\2017-7-28\8_Promise.html
+
+    ES6模块化
+        !!!浏览器不支持!!! 通过babel去转一下
+        使用webpack将es6的语法转成es5，开发的时候既可以使用ES6的新语法又能在浏览器下正常运行
+        webpack又是基于Node环境的,所以要安装Node
+        export  输出
+            可输出变量，函数，类，输出时必须使用{}，使用as可以改变变量输出时的名字
+            var n = 1;
+            export {n as m};
+        import  导入
+            接收export输出的模块的值，导入的时候必须加{}
+            import {firstName, lastName, year} from './profile';
+            解构赋值    输出的对象名                模块化js的路径
+
+        export default function () {  一般使用default输出匿名函数
+            console.log('foo')
+        }
+        import a from './export-default'  如果使用default输出，导入时则不需要加{}，变量可以随便起
+
 
 </script>
 </html>
