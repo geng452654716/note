@@ -8,6 +8,10 @@
 
     </body>
     <script type="text/javascript">
+
+    ajax方法封装:E:\（5）miaov\js高级\8.2 AJAX\ajax_1.0.js
+    Promise方法封装：E:\（5）miaov\js高级\8.2 AJAX\ajax_promise.js
+
     AJAX:
         异步的js与xhml
         ****不管什么格式，数据都是字符串****
@@ -134,17 +138,23 @@
         <input type="file"/> 使用这个表单控件
         当使用表单上传控件的时候，可以通过表单控件下的files[0]找到上传的文件,上传文件使用下面一段代码替换send中的数据,只能在ajax中使用
         const formData = new FormData;
+        var ff = file.files[0];
         formData.append('file',ff);
         ajax.spend( formData );
 
         new FormData
-            !!!!!!!
+            FormData对象可以组装一组用 XMLHttpRequest发送请求的键/值对
+            通过append方法把键值对放到FormData对象中，当send的时候直接传
+            FormData对象即可。
+            FormData.append('user','momo');
 
         ajax.upload.onprogress = function(ev){}
             ajax上传进度,用来监控上传进度
             loaded  每次传输进度
             total   总进度
             进度计算  ev.loaded / ev.total
+
+            案例参考：E:\（5）miaov\js高级\8.3 AJAX接口小栗子,上传进度\login\2_ajax上传.html
 
 
     AJAX缺点
@@ -188,6 +198,20 @@
         1.***首先数据必须要为一个函数名 + 括号的数据
         2.需要在**全局**下申明一个与数据名字相同的函数
         3.想在哪里使用就创建一个script，src等于这个数据的地址
-        
+        具体案例查看：E:\（5）miaov\js高级\2017-5-3-class\2017-8-3\5_jsonp2.html
+
+        当创建script并插入到页面的时候（动态加载），都是异步
+        这个时候本次请求已经提交，后端只要返回正确的数值就可以了
+        所以不管什么时候删除script标签都是可以的
+
+        后端的接口是由前端来定义的
+
+        jsonp函数封装：
+            E:\（5）miaov\js高级\8.5  周六复习\jsonp.js
+
+        花瓣接口：
+        http://huaban.com/boards/190280/?j5xmg3wg&max=161109035&limit=20&wfl=1
+        http://huaban.com/boards/190280/?j5xmg3wg&max=162901112&limit=20&wfl=1
+
     </script>
 </html>

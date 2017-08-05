@@ -22,7 +22,7 @@
         new过之后,函数的返回值就变成了对象，函数里的this全部指向这个对象
         直接new函数的*内置*方法会报错
         var f = new fn;
-        我们叫f是fn的实例化对象
+        我们叫f是构造函数fn的实例化对象
         如果在构造函数中return 一个简单类型的话,那么返回的还是这个对象
         如果在构造函数中return 一个复合类型的话,那么返回值就是这个复合类型
 
@@ -95,23 +95,32 @@
             2.方法继承
                 function paohui() {}
                 paohui.prototype = drag.prototype;
-                var ph = new paohui;
-                drag2.prototype = ph;
+                drag2.prototype = new paohui;
                 var d2 = new  drag2;
                 d2.constructor = drag2;
+
+                总结：
+                    function paohui() {}
+                    paohui.prototype = 父级.prototype;
+                    子级.prototype = new paohui;
+                    子级的实例化对象.constructor = 子级;
+
                 new之后会新开辟一个内存空间,就不会是赋址了,所以不会改变drag原来的属性
                 使用一个paohui作为中间人接收一下,查找路径  d2 -> d2.__proto__ -> drag2.prototype  -> ph -> ph.__proto__ -> paohui.prototype -> drag.prototype
+
 
     constructor
         构造函数上的一个属性。这个属性指向这个实例化对象的构造函数
         这个属性很容易被修改,使用类式继承后这个属性会出问题,需要手动修复
         为了以后维护代码使用,并不影响代码使用
 
+
     hasOwnProperty
         某个属性是不是这个对象下的，实例化对象身上的属性，必须在自身，在构造函数原型上不算
         返回值：Boolean
         注意：
             只有在对象自身才算true，构造函数原型上都不算
+
 
     toString -> String
         把别的数据类型转成字符串
@@ -125,8 +134,10 @@
             console.log(Object.prototype.toString().call(arr) == '[object Array]');
             当slice()没有输入参数的时候，会创建一个新数组，然后把当前数组的所有元素扔进去，最后返回这个新数组。
 
+
     debugger
         控制台断点调试
+
 
     对象深度克隆
         JSON方法,里面不能有函数
@@ -146,19 +157,24 @@
                 return o;
             }
 
+
     组件:
         是对数据和方法的简单封装，方便复用
         组件要有配置参数，能够做到有配置走配置，没配置走默认
         Object.assign(默认对象,配置对象)  // 有配置走配置，没配置走默认
 
+
     this的优先级
         人为手动去设置 > new > 定时器 >事件 > fn();
+
 
     自定义事件组件
         addEventListener()  =>  //E:\（5）miaov\js高级\7.25 自定义事件\自定义事件组件
 
+
     Object.create(拷贝的目标,新的方法)
         返回一个新的对象,接收原对象的方法,还有自己的新方法.复杂类型数据是赋址
+
 
     Object.assign(目标,源对象)
         用于对象的合并，将源对象的所有属性，复制到目标对象

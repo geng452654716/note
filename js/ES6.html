@@ -147,6 +147,10 @@
         Array.of(1,2,3,4,5) => [1,2,3,4,5]
 
 
+    Object.keys(obj)
+        keys方法可以获取对象中的key值，并把他们放入数组，这样可以知道对象的长度
+
+
     给obj加for of循环方法(遍历器)
         var obj = {name:'小红',age:2,sex:'女'};
         obj[Symbol.iterator] = function () {
@@ -175,10 +179,6 @@
         for(var {val,key} of obj){
             console.log(val,key); => key:name val:'小红'
         }
-
-
-    Object.keys(obj)
-        keys方法可以获取对象中的key值，并把他们放入数组，这样可以知道对象的长度
 
 
     函数暂停实行方法: (Generator 函数)
@@ -217,13 +217,13 @@
         import  导入
             接收export输出的模块的值，导入的时候必须加{}
             import {firstName, lastName, year} from './profile';
-            解构赋值    输出的对象名                模块化js的路径
+            解构赋值    输出的对象名                模块化js的路径 ./代表当前路径
 
         export default function () {  一般使用default输出匿名函数
             console.log('foo')
         }
         import a from './export-default'  如果使用default输出，导入时则不需要加{}，变量可以随便起
 
-
+    Object.assgin
 </script>
 </html>

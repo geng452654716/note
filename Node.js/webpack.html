@@ -28,20 +28,20 @@
                     rules:[
                         {
                             test:/\.js$/,  //正则筛选文件后缀
-                            use:[
-                                {
-                                    loader:'babel-loader',  //使用babel-loader编译器解析
-                                    options:{
-                                        presets:['env']
-                                    }
+                            use:{
+                                loader:'babel-loader',  //使用babel-loader编译器解析
+                                options:{
+                                    presets:['env']
                                 }
-                            ]
+                            }
                         },
                     ]
                 },
                 插件使用参考作业:E:\（5）miaov\js高级\8.1 webpack服务器搭建，ajax\webpackDOM,需要在服务器下打开，不能再中文目录
             }
 
+            安装webpack自带的服务器环境使用 -D 安装
+            
             npm i  还原删除掉的插件
 </script>
 </html>
