@@ -34,7 +34,7 @@
                     设置cookie的生命周期，用下面格式，iDate为使用new Date出来的日期
                     document.cookie = 'num=' + num +';expires' + iDate
             设置cookie封装函数:
-                function setCookie(key,value,time){
+                function setCookie(key,value,[time]){
                     if(time){
                         var date = new Date;
                         date.setDate(date.getDate()+time);
@@ -72,9 +72,36 @@
         删除cookie:
             其实就是设置一个时间小于当前
             删除cookie封装函数:
-                function removeCookie(key,value) {
+                function removeCookie(key,[value]) {
                     setCookie(key,value,-1);
                 }
+
+
+    localStorage
+        H5本地存储,用法和cookie一样,专门给前端设置的数据库
+        设置:
+            localStorage.setItem();
+        获取:
+            localStorage.getItem();
+        删除:
+            localStorage.removeItem()
+        生命周期:
+            只要不删就一直在
+        存储空间:
+            5M
+        事件:
+            storage事件
+                能够监听同域用浏览器的**兄弟页面**数据并且实时更新;
+                只有手动删除浏览器的数据才会在**当前页面**触发这个事件;
+
+
+    sessionStorage 与 localStorage
+        相同点:
+            设置,删除,获取的方法相同,空间大小相同
+        不同点:
+            生命周期:
+                sessionStorage:关闭浏览器就死
+                localStorage:只要不删就一直在
 
 </script>
 </body>
