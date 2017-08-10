@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    ** 创建React 对象的时候名字一定要大写**
+
+    虚拟DMO树
+        1.用javascript对象构建
+        2.
+
+    创建DOM:
+        基础写法:
+            创建一个React对象:
+            let H = React.creatElement('h1',{className:'active'},'你好！世界！');
+            把React创建的虚拟DOM渲染到DOM:
+            React.render(H,document.getElementById('app'));
+
+        jsx语法:
+            注意:
+            1.在jsx语法中,class要写成className
+            2.顶层只能有一个标签
+            3.表单元素要写结束标签
+            课件目录:E:\（5）miaov\js高级\8.9 React\基础语法.html
+
+    语法：
+        初始化数据：
+            getInitialState:function(){return{}};
+            当这个状态中的值发生改变的时候就会更新DOM
+        更改状态：
+            this.setState({})
+        给元素身上绑定事件:
+            onClick = {this.click}
+        定义事件:
+            跟render函数时平级关系，创建一个事件函数
+        输出:
+            {this.state.num}
+            输出初始化中的num数据
+
+    组件化开发:
+        实现低耦合，高内聚，玩的是团队协作
+
+    从赋组件传递给子组件的方式是通过
+        this.props来进行传递的
+
+    单项数据流:
+        父组件的数据流向子组件是单向的,父级的数据只能父级修改，子级不允许修改
+        参考课件:8.9React/my-app
+
+    react中的表单分为受限为和非受限
+        受限:
+            表单元素中加了默认的value值,都为受限组件
+            默认值应该是根据状态来修改的,只要状态不改,里面的值就不会改变
+            只要是更改表单元素可以通用 onChange
+        受限组件变为非受限组件:
+            1.绑定onchange事件,拿到ev.target.value赋值给数据
+            2.把value替换成defaultValue
+
+</script>
+</html>
