@@ -46,7 +46,7 @@
         实现低耦合，高内聚，玩的是团队协作
 
     从赋组件传递给子组件的方式是通过
-        this.props来进行传递的
+        this.props 来进行传递的
 
     单项数据流:
         父组件的数据流向子组件是单向的,父级的数据只能父级修改，子级不允许修改
@@ -61,5 +61,69 @@
             1.绑定onchange事件,拿到ev.target.value赋值给数据
             2.把value替换成defaultValue
 
+    ref
+        可以快速定位元素
+        读:console.log(this.head)
+        写:ref={(ele)=>{this.head = ele}};
+        ref不能跨组件使用,不然会报undefined
+
+
+    生命周期:
+        钩子函数:在组件的各个阶段的回调函数
+        挂载前:componentWillMount
+        挂载后:componentDidMount  //ajax请求的数据放在这个里面
+        卸载后:componentWillUnmount
+        可以在react各个阶段干想干的事
+
+
+    children:
+        React中的组件可以是单标签也可以是双标签，比如: <HeadModel/> 或 <HeadModel></HeadModel>
+        如果是双标签，里面可以插入Dom结构，子组件尅通过 this.props.children获取,
+        又通过React.children.map 方法去循环生成出结构中的内容
+        例子:
+            <HeadModel>
+                <span>hello!</span>
+                <span>word!</span>
+            </HeadModel>
+            let defaultChild = [
+                <span>你好!</span>,
+                <span>世界!</span>
+            ]
+            if(this.props.children){
+                //如果HeadModel中有DOM结构，那么走这条  输出：hello!word!
+                child = React.children.may(this.props.children,(child) => {
+                    return child
+                })
+            }else{
+                //如果HeadModel中没有DOM结构，那么走这条  输出：你好！世界！
+                child = React.children.may(defaultChild,(child) => {
+                    return child
+                })
+            }
+
+
+    路由:
+        improt {BrowserRouter as Router,Route,Link} form 'react-router-dom';
+        写法:
+            <Router>
+                <Route path='/ppa' component={ <PPA />}/>
+            </Router>
+        component里面既可以写组件,也可以接受一个函数
+        这个函数的参数中，有个math，他可以显示当前的路由是什么?
+        math = {
+            path:'/:id',
+            url:'/ppa',
+            isExact:true,
+            params:{id:arr},
+        }
+        match.params.id 就是路由的地址 /后面的地址
+        /:id 就是/ + 路由的地址,通过matc.params.id，就能找到当前路由是谁
+
+        exact:
+            加在Route中
+            如果加了:
+                /ppa/xxx  拿不到ppa的组件,加了后会看全部
+            如果没加:
+                /ppa/xxx 可以拿到ppa的组件,不加的话只看第一个/后面的东西
 </script>
 </html>
