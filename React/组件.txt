@@ -1,0 +1,15 @@
+不同组件公用功能:Mixins   react-mixin
+
+可以在jsx中写class:bable-plugin-react-html-attrs
+
+jsx与css在线转换工具:http://staxmanade.com/CssToReact/
+
+接口调试软件:POSMan
+
+图标网址:http://www.iconfinder.com/
+
+移动端适配组件:react-responsive(媒体查询)
+
+react-router  yarn add react-router-dom
+
+

@@ -28,6 +28,7 @@
             3.表单元素要写结束标签
             课件目录:E:\（5）miaov\js高级\8.9 React\基础语法.html
 
+
     语法：
         初始化数据：
             getInitialState:function(){return{}};
@@ -42,15 +43,19 @@
             {this.state.num}
             输出初始化中的num数据
 
+
     组件化开发:
         实现低耦合，高内聚，玩的是团队协作
+
 
     从赋组件传递给子组件的方式是通过
         this.props 来进行传递的
 
+
     单项数据流:
         父组件的数据流向子组件是单向的,父级的数据只能父级修改，子级不允许修改
         参考课件:8.9React/my-app
+
 
     react中的表单分为受限为和非受限
         受限:
@@ -60,6 +65,25 @@
         受限组件变为非受限组件:
             1.绑定onchange事件,拿到ev.target.value赋值给数据
             2.把value替换成defaultValue
+
+
+    参数类型限制:
+        限制父组件传入的参数必须为number类型
+        组件.propTypes = {
+            参数 : React.propTypes.number,
+        }
+        限制父组件必须传name参数
+        组件.propTypes = {
+            name:React.propTypes.string.isRequired,
+        }
+
+
+    配置默认参数(有参数走参数，没参数走默认):
+        const defaultProps = {
+            name:'默认名字',
+        }
+        调用:
+            组件.defaultProps = defaultProps;
 
     ref
         可以快速定位元素
@@ -103,7 +127,8 @@
 
 
     路由:
-        improt {BrowserRouter as Router,Route,Link} form 'react-router-dom';
+        安装 npm i react-router-dom
+        improt {BrowserRouter as Router,Route,Link} from 'react-router-dom';
         写法:
             <Router>
                 <Route path='/ppa' component={ <PPA />}/>
@@ -117,7 +142,8 @@
             params:{id:arr},
         }
         match.params.id 就是路由的地址 /后面的地址
-        /:id 就是/ + 路由的地址,通过matc.params.id，就能找到当前路由是谁
+        /:id 就是/ + .params.id，就能路由的地址,通过matc找到当前路由是谁
+
 
         exact:
             加在Route中
@@ -125,5 +151,64 @@
                 /ppa/xxx  拿不到ppa的组件,加了后会看全部
             如果没加:
                 /ppa/xxx 可以拿到ppa的组件,不加的话只看第一个/后面的东西
+
+
+    插件:
+        不同组件公用功能:Mixins
+        安装:
+            npm i react-mixin@2
+            导入 import ReactMixin from 'react-mixin'
+        用法:
+            全局引用,在最后,
+            ReactMixin(组件.propTypes,Mixin函数名)
+            组件使用:
+                Mixin函数名.方法名();
+                Minxin中也有生命周期，可以用他的钩子函数
+
+        可以在jsx中写class:
+        安装:
+            bable-plugin-react-html-attrs
+        用法:
+            可以再接再jsx中使用class
+
+        jsx与css在线转换工具:
+        网址:
+            http://staxmanade.com/CssToReact/
+
+        接口调试软件:
+            POSMan
+
+        图标网址:
+            http://www.iconfinder.com/
+
+        移动端适配组件(媒体查询):
+        安装:
+            react-responsive
+        用法:
+            导入 import MediaQuery from 'react-responsive'
+            <MediaQuery query="( min-device-width : 1224px )">
+                <PC端组件 /> //宽度大于1224px显示pc端的
+            </MediaQuery>
+            <MediaQuery query="( max-device-width : 1224px )">
+                <移动端组件 />  //宽度小于1224px显示移动端的
+            </MediaQuery>
+
+        ajax请求框架fetch:
+        安装:
+            npm install fetch
+        用法:
+            let Fetch = {
+                method:'GET',  //请求方式
+            }
+
+            fetch('url','Fetch').
+            then(respones=>respones.json()). //请求成功返回数据，json格式化
+            then(json=>{
+                // 返回成功的数据，直接调用里面的k值
+            })
+            message.success("请求成功");
+
+
+
 </script>
 </html>
