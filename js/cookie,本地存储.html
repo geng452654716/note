@@ -16,10 +16,11 @@
 
     cookie
         实际上是后端的技术,前端用来跨页面数据访问
-        前端使用cooki跟后端干的事不一样，不过都是通过cookie的特性来造作的
+        前端使用cookie跟后端干的事不一样，不过都是通过cookie的特性来造作的
         后端没有任何方法将当前用户状态保存，所以使用cookie来记录当前的用户信息
         cookie必须在服务器环境下才可以运行
         cookie可以把当前域名中的数据保存在浏览器中，换页面时不会丢失
+        cookie中不能存中文，所以需要转码再存
         document.cookie  // 读操作
         document.cookie = 1  // 写操作
         document.cookie = 'num=' + num +';expires' + iDate
@@ -34,13 +35,14 @@
                     设置cookie的生命周期，用下面格式，iDate为使用new Date出来的日期
                     document.cookie = 'num=' + num +';expires' + iDate
             设置cookie封装函数:
-                function setCookie(key,value,[time]){
-                    if(time){
+                //设置cookie
+                function setCookie(key, value, time) {
+                    if (time) {
                         var date = new Date;
-                        date.setDate(date.getDate()+time);
-                        document.cookie = key + '=' + value + ';expires' + date;
-                    }else{
-                        document.cookie = key + '=' + value;
+                        date.setDate(date.getDate() + time);
+                        document.cookie = key + '=' + escape(JSON.stringify(value)) + ';expires=' + date;
+                    } else {
+                        document.cookie = key + '=' + escape(JSON.stringify(value));
                     }
                 }
             在以前的浏览器下，cookie的大小是4095字节
@@ -51,20 +53,21 @@
             获取的时候，一次性能获取到当前域名下的所有的cookie
             每个cookie使用; (**分号空格**)来分割的
             获取cookie封装函数:
-                function getCookie(key){
+                //获取cookie
+                function getCookie(key) {
                     let str = document.cookie;
                     let arr = str.split('; ');
                     let val = null;
-                    for(var i=0;i<arr.length;i++){
+                    for (var i = 0; i < arr.length; i++) {
                         let arr2 = arr[i].split('=');
-                        if(arr2[0] == key){
-                            val = arr2[1];
+                        if (arr2[0] == key) {
+                            val = unescape(arr2[1]);
                             break;
                         }
                     }
-                    if(val){
+                    if (val) {
                         return val
-                    }else{
+                    } else {
                         return -1;
                     }
                 }

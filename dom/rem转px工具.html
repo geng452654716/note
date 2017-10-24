@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #text1,#text2{
+            height: 500px;
+            width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <textarea name="" id="text1"></textarea>
+    <textarea name="" id="text2"></textarea>
+    <button>开始</button>
+    <script>
+        var text1 = document.getElementById('text1');
+        var text2 = document.getElementById('text2');
+        var btn = document.getElementsByTagName('button')[0];
+        var newText = '';
+        btn.onclick = function(){
+            newText = text1.value.replace(/(\s|\-)?\d+\.\d+rem/g,function($0){
+                return ' ' + Math.trunc(parseFloat($0)*46.875) + '/@base';
+            })
+            text2.value = newText;
+            setTimeout(function() {
+                text1.value = '';
+                text2.value = '';
+            }, 10000);
+        }
+    </script>
+</body>
+</html>

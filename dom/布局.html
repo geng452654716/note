@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-bottom: 10px;
+            line-height: 30px;
+        }
+
+        .left::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        span {
+            width: 30%;
+            text-align: right;
+            padding-right: 50px;
+        }
+
+        .left {
+            width: 70%;
+        }
+
+        input {
+            border-radius: 8px;
+            border: 1px solid #000;
+            height: 30px;
+            line-height: 30px;
+            width: 300px;
+            text-indent: 20px;
+        }
+
+        .imgBg {
+            height: 200px;
+            width: 200px;
+            background: #666;
+            position: relative;
+            float: left;
+            margin-right: 30px;
+        }
+
+        .btn {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+
+        strong {
+            font-size: 50px;
+            text-align: center;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .describe {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <span>课程名称</span>
+            <div class="left">
+                <input type="text" placeholder="填写课程名称">
+            </div>
+        </li>
+        <li>
+            <span>一句话营销</span>
+            <div class="left">
+                <input type="text" placeholder="一句话说明特色">
+            </div>
+        </li>
+        <li>
+            <span>课程图片</span>
+            <div class="left">
+                <div class='imgBg'>
+                    <div class="btn">
+                        <strong>+</strong>
+                        <p>点击上传图片</p>
+                    </div>
+                </div>
+                <div class="describe">
+                    尺寸大于XXXXX
+                </div>
+            </div>
+        </li>
+        <li>
+            <span>你是不是傻</span>
+            <div class="left">
+                <input type="text" placeholder="两句话说明特色">
+            </div>
+        </li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div {
+            background: red;
+            height: 200px;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div"></div>
+</body>
+<script>
+    var div = document.getElementById('div');
+    var fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled;
+    // 判断各种浏览器，找到正确的方法
+    function launchFullscreen(element) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+    }
+
+    // 启动全屏!
+    div.ondblclick = function () {
+        launchFullscreen(div);
+    }
+
+    //全屏触发事件
+    document.addEventListener('fullscreenchange', function () { fullscreenEnable() });
+    document.addEventListener('webkitfullscreenchange', function () { fullscreenEnable() });
+    document.addEventListener('mozfullscreenchange', function () { fullscreenEnable() });
+    document.addEventListener('MSFullscreenChange', function () { fullscreenEnable() });
+
+    //判断浏览器是否在全屏
+    function fullscreenEnable() {
+        var isFullscreen = document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled;
+        //注意：要在用户授权全屏后才能准确获取当前的状态
+        if (isFullscreen) {
+            console.log('全屏模式');
+        } else {
+            console.log('非全屏模式');
+        }
+    }
+
+
+    //跨浏览器返回正处于全屏的元素
+    function fullscreenElement() {
+        var fullscreenEle = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+        //注意：要在用户授权全屏后才能获取全屏的元素，否则 fullscreenEle为null
+        console.log("全屏元素：" + fullscreenEle);
+        return fullscreenEle;
+    }
+
+
+    //跨浏览器退出全屏
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExiFullscreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        }
+    }
+    exitFullscreen();
+</script>
+
+</html>

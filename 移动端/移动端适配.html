@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta name="viewport" content="width=device-width,user-select=none,"> -->
+        <meta name="viewport" content="width=device-width,user-select=no">
+        <!-- 强制X5内核浏览器（QQ,微信）竖屏显示 -->
+        <meta name="x5-orientation" content="portrait">
+        <!-- 强制X5内核浏览器全屏显示 -->
+        <meta name="x5-fullscreen" content="true">
+        <!-- 强制UC浏览器竖屏显示 -->
+        <meta name="screen-orientation" content="portrait"/>
+        <!-- 强制UC浏览器全屏显示 -->
+        <meta name="full-screen" content="yes">
+        <!-- 禁止拨打电话和发送邮件 -->
+        <meta name="format-detection" content="telephone=no,email=no">
+        <title></title>
+        <style media="screen">
+
+        </style>
+    </head>
+    <body>
+        <a href="tel:18888888888">请拨打18888888888</a>  //点击拨打电话
+        <a href="mailto:452654716@qq.com">发送邮件</a>   //点击发送邮件
+        <script>
+
+
+            移动端常见问题：
+                Font Boosting
+                    出现场景：在一段文字，我们没有给他设置高度的时候，在webkit内核下，文字的大小被浏览器放大了。
+                    解决方法：
+                        1.设置高度
+                        2.设置最大高度，max-height
+
+                fixed：
+                    固定定位，移动端对固定定位的兼容性有问题，尽量不要使用。
+                    解决方法：
+                        css解决方法：
+                            把html，body的滚动条去掉，给内容外面加一层外框，给外框设置滚动条，让header根据body来定位（还是有某些问题，不推荐使用）
+                            html{height:100%;overflow: hidden;}
+                            body{height: 100%;overflow: hidden;position: relative;}
+                            .warp{height:100%;overflow:auto;}
+                            header{position: absolute;}
+                        js解决方法：
+
+                IOS下body的overflow问题:
+                    出现场景：在给body设置overflow的时候，横向还是可以滑动
+                    解决方案：在内容外面包一层外框，然后给body设置overflow:hidden，给外框设置overflow:auto;
+
+                点透问题：
+                    第一种解决方案：
+                        下层元素不使用焦点元素。但是不使用a标签会影响爬虫爬取有效信息
+                        对SEO优化不太友好。
+                        a.addEventListener('touchend',function(){
+                            window.location.href = 'http://www.baidu.com';
+                        });
+                    第二种解决方案：
+                        在上层元素消失或者漂移的时候，加个定时器，延迟执行动作。
+                        实测不是太稳定，不过可以尝试在100左右。
+                        app.addEventListener('touchend',function(ev){
+                            ev.preventDefault();
+                            第二种解决方案
+                            setTimeout(()=>{this.style.display = 'none';},100)
+                            this.style.display = 'none';
+                            this.style.opacity = 0; //点不到，不算消失
+                            this.style.visibility = 'hidden'; //算消失
+                        });
+                    第三种解决方案：
+                        把所有的移动端焦点事件全部禁止掉。                      
+                        目前ios10，OK，pc的浏览器是不支持的。
+                        document.addEventListener('touchstart',function(ev){
+                            ev.preventDefault();
+                        });
+                    第四种方案：
+                        把上层元素的焦点清除。
+
+                IOS返回不刷新问题：
+                    //强制IOS后退刷新
+                    function pushHistory() {
+                        window.addEventListener("popstate", function(e) {
+                            self.location.reload();
+                        }, false);
+                        var state = {
+                            title : "",
+                            url : "#"
+                        };
+                        window.history.replaceState(state, "", "#");
+                    }
+
+                判断是不是在微信内置浏览器打开：
+                    function onlyOpenInWeiXin() {
+                        var ua = window.navigator.userAgent.toLowerCase();
+                        if (/MicroMessenger/gi.test(ua)) {
+                            //是微信
+                            return;
+                        } else {
+                            //不是微信
+                        }
+                    }
+
+                IOS时间对象兼容问题：
+                    IOS兼容  2017/1/2 12:00:00 的时间格式
+                    function iosDate(time) {
+                        return time.replace(/\-/g, '\/');
+                    }
+
+
+            移动端适配方法：
+                (function (deviceWidth, fontSize){
+                    deviceWidth = deviceWidth || 640;
+                    fontSize = fontSize || 100;
+                    var metas = document.querySelectorAll('meta');
+                    var viewPort = [].slice.call(metas).filter((item) => {
+                        return item.name === 'viewport';
+                    })[0];
+                    if(!viewPort){
+                        var meta = document.createElement('meta');
+                        meta.name = 'viewport';
+                        viewPort = document.head.insertBefore(meta, metas[metas.length - 1].nextElementSibling);
+                    }
+                    var scale = 1/window.devicePixelRatio;
+                    viewPort.content = `width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`;
+                    var html = document.documentElement;
+                    var fn = function (){
+                        html.style.fontSize = (html.clientWidth / deviceWidth) * fontSize + 'px';
+                    };
+                    fn();
+                    window.addEventListener('resize', fn);
+                })();
+
+                
+            移动端常用判断方法：
+                判断设备：
+                    const navgigator = window.navigator.userAgent.toLowerCase();
+                    if(/iphone|android|ipad/.test(navgigator)){
+                        console.log('是移动端');
+                    }else{
+                        console.log('不是移动端');
+                    }
+                
+
+            移动端三大事件：
+                按下：
+                    ontouchstart
+                    document.addEventListener('touchstart',function(){
+                        console.log('按下');
+                    });
+                滑动：
+                    ontouchmove
+                    document.addEventListener('touchmove',function(){
+                        console.log('滑动');
+                    });
+                抬起：
+                    ontouchend
+                    document.addEventListener('touchend',function(){
+                        console.log('抬起');
+                    });
+                移动端的事件有个特点，当start作用于某个目标元素的时候，只要没touchend
+                所有的行为都还在start时的目标身上。
+
+
+            移动端隐藏微信内video的进度条：
+                <video id="liveVideo" x5-video-player-type="h5" x5-video-player-fullscreen='true' webkit-playsinline='true' playsinline='true' x-webkit-airplay="true" airplay="allow" x5-video-orientation="portrait" x-webkit-airplay="allow" src=''></video>
+
+        </script>
+    </body>
+</html>

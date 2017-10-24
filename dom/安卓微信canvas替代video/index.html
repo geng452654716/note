@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <script>
+        (function (deviceWidth, fontSize) {
+            deviceWidth = deviceWidth || 640;
+            fontSize = fontSize || 100;
+            var metas = document.querySelectorAll('meta');
+            var viewPort = [].slice.call(metas).filter((item) => {
+                return item.name === 'viewport';
+            })[0];
+            if (!viewPort) {
+                var meta = document.createElement('meta');
+                meta.name = 'viewport';
+                viewPort = document.head.insertBefore(meta, metas[metas.length - 1].nextElementSibling);
+            }
+            var scale = 1 / window.devicePixelRatio;
+            viewPort.content = `width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`;
+            var html = document.documentElement;
+            var fn = function () {
+                html.style.fontSize = (html.clientWidth / deviceWidth) * fontSize + 'px';
+            };
+            fn();
+            window.addEventListener('resize', fn);
+        })(750, 50);
+    </script>
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        button,
+        #quan {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+
+        #quan {
+            left: 300px;
+        }
+
+        canvas {
+            transform-origin: left bottom;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            display: none;
+            height: 100px;
+            width: 200px;
+        }
+
+        .videoBox {
+            overflow: hidden;
+        }
+
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="videoBox">
+        <video id="liveVideo" x5-video-player-type="h5" x5-video-player-fullscreen='true' webkit-playsinline='true' playsinline='true'
+            x-webkit-airplay="true" airplay="allow" x5-video-orientation="portrait" x-webkit-airplay="allow">
+            <source src="http://img.ksbbs.com/asset/Mon_1605/0ec8cc80112a2d6.mp4" type="video/mp4">
+        </video>
+    </div>
+    <button>开始</button>
+    <canvas id="liveCanvas"></canvas>
+    <div id="quan">全屏</div>
+    <script>
+        var btn = document.getElementsByTagName('button')[0];
+        //获取video
+        var oLiveVideo = document.getElementById("liveVideo");
+        //获取canvas画布
+        var oLiveCanvas = document.getElementById("liveCanvas");
+        //设置画布
+        var oLiveCanvas2D = oLiveCanvas.getContext('2d');
+        //设置setinterval定时器
+        var bLiveVideoTimer = null;
+        var videoBox = document.getElementsByClassName('videoBox')[0];
+
+        // if (/QQ/g.test(window.navigator.userAgent)) {
+        //     QQ();
+        // } else {
+        //     Else();
+        // }
+        QQ();
+        function QQ() {
+            var oldCanvasH = 420;
+            var oldCanvasW = innerWidth;
+
+            var oldVideoH = oldCanvasH;
+            var oldVideoW = oldCanvasW;
+
+            oLiveCanvas.height = oldCanvasH;
+            oLiveCanvas.width = oldCanvasW;
+
+            //监听播放
+            oLiveVideo.addEventListener('play', function () {
+                bLiveVideoTimer = setInterval(function () {
+                    oLiveCanvas2D.drawImage(oLiveVideo, 0, 0, oldVideoW, oldVideoH);
+                }, 60);
+            }, false);
+            //监听暂停
+            oLiveVideo.addEventListener('pause', function () {
+                clearInterval(bLiveVideoTimer);
+                btn.style.display = 'block';
+                oLiveCanvas.height = oldCanvasH;
+                oLiveCanvas.width = oldCanvasW;
+                oldVideoH = oldCanvasH;
+                oldVideoW = oldCanvasW;
+                oLiveCanvas.style.transform = null;
+            }, false);
+
+            //监听结束
+            oLiveVideo.addEventListener('ended', function () {
+                clearInterval(bLiveVideoTimer);
+            }, false);
+
+            oLiveVideo.style.display = 'none';
+            quan.onclick = function () {
+                var winH = innerHeight;
+                var winW = innerWidth;
+                oldVideoH = winW;
+                oldVideoW = winH;
+                oLiveCanvas.height = oldVideoH;
+                oLiveCanvas.width = oldVideoW;
+                oLiveCanvas.style.transform = 'rotate(90deg) translate(-56.25%)';
+            }
+            btn.onclick = function () {
+                oLiveVideo.play();
+                oLiveVideo.pause();
+                oLiveVideo.currentTime = 100;
+                oLiveVideo.play();
+            }
+        }
+
+        function Else() {
+            oLiveCanvas.style.display = 'none';
+            oLiveVideo.controls = false;
+            oLiveVideo.style.height = innerHeight * 1.2 + 'px';
+            oLiveVideo.style.width = innerWidth * 1.2 + 'px';
+
+            videoBox.style.height = innerHeight + 'px';
+            videoBox.style.width = innerWidth + "px";
+            btn.onclick = function () {
+                oLiveVideo.play();
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        setTimeout(function () {
+            btn.style.display = 'block';
+        }, 3000)
+
+        $(that.video).one("playing",function(){
+            that.video.currentTime = time;
+            $(that.video).one("seeked",function(){
+                $(that.video).one("timeupdate",function(){
+                    clearTimeout(that.timeout);
+                    that.timeout = setTimeout(()=>{
+                        if(that.status == "playing"){
+                            that.video.play();
+                        }else{
+                            that.video.pause();
+                        }
+                    },that.delay);
+                });
+            })
+        })
+    </script>
+</body>
+
+</html>

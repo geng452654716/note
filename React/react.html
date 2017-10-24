@@ -155,59 +155,78 @@
 
     插件:
         不同组件公用功能:Mixins
-        安装:
-            npm i react-mixin@2
-            导入 import ReactMixin from 'react-mixin'
-        用法:
-            全局引用,在最后,
-            ReactMixin(组件.propTypes,Mixin函数名)
-            组件使用:
-                Mixin函数名.方法名();
-                Minxin中也有生命周期，可以用他的钩子函数
+            安装:
+                npm i react-mixin@2
+                导入 import ReactMixin from 'react-mixin'
+            用法:
+                全局引用,在最后,
+                ReactMixin(组件.propTypes,Mixin函数名)
+                组件使用:
+                    Mixin函数名.方法名();
+                    Minxin中也有生命周期，可以用他的钩子函数
+
 
         可以在jsx中写class:
-        安装:
-            bable-plugin-react-html-attrs
-        用法:
-            可以再接再jsx中使用class
+            安装:
+                bable-plugin-react-html-attrs
+            用法:
+                可以再接再jsx中使用class
+
 
         jsx与css在线转换工具:
-        网址:
-            http://staxmanade.com/CssToReact/
+            网址:
+                http://staxmanade.com/CssToReact/
+
 
         接口调试软件:
             POSMan
 
+
         图标网址:
             http://www.iconfinder.com/
 
+
         移动端适配组件(媒体查询):
-        安装:
-            react-responsive
-        用法:
-            导入 import MediaQuery from 'react-responsive'
-            <MediaQuery query="( min-device-width : 1224px )">
-                <PC端组件 /> //宽度大于1224px显示pc端的
-            </MediaQuery>
-            <MediaQuery query="( max-device-width : 1224px )">
-                <移动端组件 />  //宽度小于1224px显示移动端的
-            </MediaQuery>
+            安装:
+                react-responsive
+            用法:
+                导入 import MediaQuery from 'react-responsive'
+                <MediaQuery query="( min-device-width : 1224px )">
+                    <PC端组件 /> //宽度大于1224px显示pc端的
+                </MediaQuery>
+                <MediaQuery query="( max-device-width : 1224px )">
+                    <移动端组件 />  //宽度小于1224px显示移动端的
+                </MediaQuery>
+
 
         ajax请求框架fetch:
-        安装:
-            npm install fetch
-        用法:
-            let Fetch = {
-                method:'GET',  //请求方式
-            }
+            安装:
+                npm install fetch
+            用法:
+                let Fetch = {
+                    method:'GET',  //请求方式
+                }
 
-            fetch('url','Fetch').
-            then(respones=>respones.json()). //请求成功返回数据，json格式化
-            then(json=>{
-                // 返回成功的数据，直接调用里面的k值
-            })
-            message.success("请求成功");
+                fetch('url','Fetch').
+                then(respones=>respones.json()). //请求成功返回数据，json格式化
+                then(json=>{
+                    // 返回成功的数据，直接调用里面的k值
+                })
+                message.success("请求成功");
 
+
+        react性能优化:
+            安装:
+                react-addons-pure-render-mixin
+            引入:
+                import PureRenderMixin from 'react-addons-pure-render-mixin'
+            用法:
+                constructor(){
+                    super()
+                    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+                }
+
+        
 
 
 </script>

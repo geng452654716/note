@@ -95,6 +95,15 @@
      * userAgent:浏览器信息，版本号，内核
      * */
 
-
+    let navigator = window.navigator.userAgent.toLowerCase();
+    if(/iphone|android|ipad/.test(navigator)){
+        window.location.href = 'http://m.taobao.com';
+    }else{
+        window.location.href = 'http://www.taobao.com';
+    }
+    /*
+        判断用户打开的是移动端还是PC端
+    */
+    
 </script>
 </html>

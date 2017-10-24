@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue笔记</title>
+</head>
+
+<body>
+    <script>
+        VUE脚手架安装
+            npm i vue-cli -g
+
+        VUE项目创建
+            vue init webpack[name]
+            name: 项目名字
+
+        VUE实例 API
+            new Vue({
+                el:'',     //字符串，挂载元素
+                template:'',    //字符串，挂载组件字符串
+                components:[],    //数组，注册组件
+                router:{},        //对象实例，路由
+                name:'',        //字符串，组件名字
+                data:{},        //对象，数据
+                created:function(){},   //函数，钩子       组件加载前钩子函数   在渲染组件的时候调用一次，再次复用组件不会调用
+                watch:{},       //对象，观察属性     key为需要监控的属性   val为监控属性的回调
+                computed:{},    //计算属性        需要使用2个或以上的属性进行计算时使用    key为计算结果的属性   val为计算公式回调  每当需要参与计算的属性改变时，执行回调
+            })
+        
+            
+        vue - router API
+            挂载: Vue.use(VueRouter);
+            vue路由实例  API
+                new VueRouter({
+                    mode:'history',   //路由模式
+                    linkActiveClass:'active',  //路由激活时router-link ClassName
+                    scrollBehavior (to, from, savedPosition) {   //点击浏览器前进后退的时候或切换路由是触发   记录滚动条的坐标
+                        console.log(to);  //要进入的路由对象    目标路由
+                        console.log(from);  //离开的路由对象    从哪里来
+                        console.log(savedPosition); //记录滚动条的坐标  点击前进后退的时候记录触发
+
+                        //路由跳转滚动条定位 
+                        if(savedPosition){
+                            return savedPosition   //如果有记录坐标，返回坐标值
+                        }else{
+                            return {x:0,y:0}       //如果没有记录坐标，返回最顶部（0）
+                        }
+
+                        //路由跳转元素定位 
+                        if(to.hash){                //根据目标的路由hash，定位到想要的元素
+                            return {
+                                selected:to.hash,   //给定位目标的元素上加和hash一样的id
+                            }
+                        }
+                    },
+                    routes: [        //路由 
+                        {
+                            path: '/',    //路径
+                            path:'/user/:userId?',  //:后面的为动态路由   ?为最少没有，最多一个，同正则
+                            component: [name],  //组件  name:组件变量
+                            name:'',   //路由名字
+                            redirect:(to)=>{   //动态设置重定向目标
+                                return '/'    //重定向到根路径
+                                console.log(to);  //目标路由对象，就是访问的路径的路由信息
+                                console.log(to.path);  //为目标路由路径
+                            },
+                            alias:'/baobao',   //路由别名，访问这个路径也能到这个路由
+                            children:[    //子路由
+                                {
+                                    path:'',  //子路由地址,如果为''的话是默认子路由
+                                    component:[name]     //子路由组件    name:组件变量                          
+                                }
+                            ],
+                            components:{   //  如果一个路由下有多个组件的同时显示,使用components而不使用components
+                                default:[name], //默认显示的组件  name:组件名
+                                [name]:[component]   //在有name属性的router-view上显示组件   name:router-view的name名  component:组件名
+                            },
+                            meta:{    //路由元信息，自定义数据
+                                index:0,   //如设置路由的索引值
+                            },
+                            beforeEnter: (to, from, next) => {   //进入当前路由后触发的钩子函数   ***单路由钩子
+                                console.log(to);   //当前导航路由对象        到哪里去
+                                console.log(from); //从哪来导航路由对象      从哪里来
+                                next();  //默认使用这个钩子拦截导航，如果需要进入目标路由，则执行next函数
+                            }
+                        },
+                        {
+                            path:'*',   //通配符，匹配上面匹配不到的全部路由
+                            component:[name],   //路由组件
+                            redirect:'/',   //重定向到路径到根
+                        }
+                    ],
+                })
+
+                $router   //router实例对象
+                $route    
+                    //当前激活的路由信息对象，每个组件实例都有，地址一旦发生变化，会重新生成一个路由对象
+                    参数：
+                        $route = {
+                            fullPath: '',       //字符串，路由完整路径包括hash和seach
+                            hash:'',        //字符串，路由的hash
+                            name:'',        //字符串，路由的name
+                            matched:[],     //数组，包含当前路由的所有嵌套路径片段的路由记录
+                            params:{},      //对象，当前路由的动态参数
+                            query:{},       //对象，查询字符串    使用url seach传入的参数都在query这个对象中，也可以使用这个对象传参
+                        }
+
+                beforeEach
+                    //router实例的钩子函数，在进入每个路由前执行   ***全局路由钩子
+                    //使用方法：
+                    router.beforeEach((to, from, next) => {
+                        console.log(to);   //目标导航路由对象       到哪里去
+                        console.log(from); //从哪来导航路由对象     从哪里来
+                        next(); //默认使用这个钩子拦截导航，如果需要进入目标路由，则执行next函数
+                        next('/user')   //使用next方法接收一个路径的参数，重定向到参数的路径
+
+                        //案例
+                        if(to.meta.login){   //判断目标组件是否登录
+                            next('/user')    //没有登录重定向到登录组件
+                        }else{
+                            next()          //登录后直接进入组件
+                        }
+                    })
+                
+                afterEach
+                    //router实力的钩子函数，在进入每个路由后执行    ***全局路由钩子
+                    //使用方法：
+                    router.afterEach((to,from)=>{
+                        //可以利用这个钩子改变每个页面的title
+                        console.log(to);   //到哪里去
+                        console.log(from);  //从哪里来
+
+                        //案例
+                        if(to.meta.title){   //判断有没有自定义的title
+                            window.document.title = to.meta.title;  //如果有的话修改为自定义的title
+                        }else{
+                            window.document.title = 'softLink';    //如果没有的话走默认的title
+                        }
+                    })
+                    
+                beforeRouteEnter
+                    //进入组件前的钩子   在组件中配置   ***单路由钩子
+                    beforeRouteEnter((to,from,next)=>{
+                        console.log(to);   //当前导航路由对象       到哪里去
+                        console.log(from); //从哪来导航路由对象     从哪里来
+                        next();  //默认使用这个钩子拦截导航，如果需要进入目标路由，则执行next函数
+                        //在路由组件调用的时候vue实例还没有创建，所以this不会指向vue实例
+                        next((vm)=>{   //在next中加一个回调函数，接受一个参数，这个参数就是指向vue的实例对象
+                            console.log(vm);  //vue的实例对象
+                        })
+                    })
+
+                beforeRouteUpdate
+                    //组件中如果有二级导航的时候，二级导航切换的时候会调用这个钩子函数   ***单路由钩子
+                    beforeRouteUpdate(to,from,next){
+                        console.log(to);   //当前二级导航路由对象         到哪里去
+                        console.log(from); //从哪来二级导航路由对象       从哪里来
+                        next();  //默认使用这个钩子拦截导航，如果需要进入目标路由，则执行next函数
+                    }
+                beforeRouteLeave
+                    //离开组件前的钩子   ***单路由钩子
+                    beforeRouteLeave((to,from,next)=>{
+                        console.log(to);   //当前导航路由对象     到哪里去
+                        console.log(from); //从哪来导航路由对象   从哪里来
+                        next();  //默认使用这个钩子拦截导航，如果需要进入目标路由，则执行next函数
+                    })
+
+
+        router - view 
+            路由渲染组件属性
+            <router-view class='active' name='menu'></router-view>
+                class:'',  //路由组件的className
+                name:''    //可以给渲染路由加name属性
+
+        router-link  API
+            to: '/user'  //跳转链接目标路径
+            tag:'li'  //使用什么标签渲染
+            active-class:'active' //激活时使用的className
+            event:'事件名'   //使用什么事件激活router-link
+            exact:true   //路由精确匹配
+            :to:{name:路由的name}  //可以根据路由的name自己生成路径   
+            :to:{path:'user',params:{userId:1}}  //跳转路径为/user/1   params（动态参数）获取为{userId:1}   
+            :to:{path:'user',query:{userId:1}}   //跳转路径为/user?userid=1   query可获取为{userId:1}
+
+
+        transition  API
+            组件切换过度动画,使用6个class来控制，class在style用css3 tarnsiton写动画
+            <transition name='left' mode="in-out">
+                <router-view></router-view>
+            </transition>
+            name:'left'     //默认class名已v-开头，如需自定义则在transtion 组件上加name属性
+            mode:'in-out'   //切换过度模式，in-out为新元素先进行过度，完成后当前元素过度离开  ***默认
+            mode:'out-in'   //切换过度模式,out-in为当前元素先进行过度，完成后新元素过度进入
+
+            v-enter:''  // class类名  定义进入过度的开始状态
+            v-enter-to:'' //class类名  定义进入过度的结束状态
+            v-enter-active:''  //class类名  定义进入过度活动状态，如过度时间等
+            v-leave:''  //class类名   定义离开过度的开始状态
+            v-leave-to:''  //class类名  定义离开过度的结束状态
+            v-leavee-active:'' //calss类名  定义离开过度活动状态，如过度时间等
+
+            //动态绑定动画案例   左侧的导航往右动画，右侧的导航往左动画
+            data(){
+                return{
+                    init:'left',
+                }
+            },
+            watch:{
+                $route(to,from){
+                    console.log(to);   //目标路由
+                    console.log(from); //当前路由
+                    if(to.meta.index < from.meta.index){
+                        this.init = 'right'
+                    }else{
+                        this.init = 'left'
+                    }
+                }
+            }
+            
+            
+    </script>
+</body>
+
+</html>

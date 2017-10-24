@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* public  */
+
+        /* 去掉a,input,button点击后的默认背景*/
+        a,
+        input,
+        button {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        /*清除ios下按钮圆角*/
+        input,
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0;
+        }
+        /*设置禁止文字选中*/
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: Helvetica;
+        }
+        /*设置用户禁止修改字体大小*/
+        body *{
+            -webkit-text-size-adjust: 100%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>
